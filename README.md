@@ -1,0 +1,1 @@
+Hito 3 - Presentación del proyecto en clase, con la funcionalidad del desarrollo de los Hitos 1 y 2.
