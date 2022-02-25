@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>Proyecto Covid-19 - Hito 1 y 2 - Situación Mundial</title>
+</head>
+
+<body>
+
+  <!-- NAVBAR-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Covid-19</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Hito1 Hito2 -->   
+      <!-- Creación de una barra de navegación en la parte superior con las opciones de “Home” e “Iniciar sesión” -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" id="js-link-home" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <!-- Hito 2: Se usan dos atributos personalizados data-toggle y data-target para 
+                 ser llamados desde el script y poder desplegar el modal que permite iniciar sesión-->
+            <a class="nav-link" id="js-link-login" data-toggle="modal" data-target="#formModal" href="#" style="display: block">Iniciar sesión</a>
+          </li>
+          <!-- Hito 2: se agregan los link con las opciones de "Situacion en Chile" y "Cerrar Sesion"-->
+          <!-- Display: none, para ocultar los elementos por defecto y mostarlos cuando se requiera-->
+          <li class="nav-item" id="js-link-chile" style="display: none">
+            <a class="nav-link" href="#">Situacion Chile</a>
+          </li>
+          <li class="nav-item" id="js-link-logout" style="display: none">
+            <a class="nav-link" href="#">Cerrar Sesion</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Título Gráfico -->
+  <header>
+    <div class="text-center my-5 ">
+      <h1 class="font-weight-bold">Paises con Covid-19</h1>
+    </div>
+  </header>
+
+  <!-- Grafico de Casos por país -->
+  <div class="container-fluid my-2">
+    <div id="chartContainer-casos" style="height: 600px; width: 100%;"></div>
+  </div>
+
+  <!-- Grafico Chart.js Hito 2 - Opción Situación Chile -->
+  <div id="js-myChartChile" style="display: none">
+    <canvas id="myChartChile"></canvas>
+  </div>
+ 
+
+  <!-- Tabla de Casos por país -->
+  <section id="js-tabla-casos">
+    <div class="text-center mt-4">
+      <h3>Paises con mas de 10.000 Muertes</h3>
+    </div>
+
+    <div class="container-fluid">
+      <table id="tabla-casos" class="table table-dark table-striped">
+        <thead>
+          <th>Pais</th>
+          <th>Confirmados</th>
+          <th>Muertes</th>
+          <th>Recuperados</th>
+          <th>Activos</th>
+        </thead>
+        <tbody id="insertar-tabla">
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- Hito 1: Estructura Modal Gráfico Situación por país -->
+  <div class="modal fade" id="detalleModalPais" tabindex="-" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Situación por País</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-graficoDetallePais">
+          <div id="chartContainer-pais" style="height: 400px; width: 100%;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- Modal Hito 2: Inicio de Sesión en Formulario -->
+   <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>Iniciar Sesion</h5>
+          
+        </div>
+        <div class="modal-body">
+          <form id="js-form-login">
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" id="js-input-email" class="form-control" aria-describedby="emailHelp" />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="js-input-password" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CANVAS -->
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+    crossorigin="anonymous"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+    integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Scripts Hito 1 e Hito 2 -->
+  <script src="./assets/scriptsHito1.js"></script>
+  <script src="./assets/scriptsHito2.js"></script>
+</body>
+
+</html>
+
